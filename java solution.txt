@@ -1,0 +1,149 @@
+1) First question 
+
+public class MergeArrays {
+    public static void mergeArrays(int[] X, int[] Y) {
+        int m = X.length;
+        int n = Y.length;
+        int k = 0;
+        for (int i = 0; i < m; i++) {
+            if (X[i] != 0) {
+                X[k++] = X[i];
+            }
+        }
+        int i = k - 1;
+        int j = 0;
+        int idx = 0;
+        while (i >= 0 && j < n) {
+            if (X[i] > Y[j]) {
+                X[idx++] = Y[j++];
+            } else {
+                X[idx++] = X[i--];
+            }
+        }
+        while (j < n) {
+            X[idx++] = Y[j++];
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] X = { 0, 2, 0, 3, 0, 5, 6, 0, 0 };
+        int[] Y = { 1, 8, 9, 10, 15 };
+
+        mergeArrays(X, Y);
+
+        System.out.print("Merged array: ");
+        for (int num : X) {
+            System.out.print(num + " ");
+        }
+    }
+}
+
+2) Second question 
+
+public class MaximumSumPath {
+    public static int maxSumPath(int[] X, int[] Y) {
+        int m = X.length;
+        int n = Y.length;
+
+        int i = 0, j = 0;
+        int sumX = 0, sumY = 0;
+        int result = 0;
+
+        while (i < m && j < n) {
+            if (X[i] < Y[j]) {
+                sumX += X[i++];
+            } else if (X[i] > Y[j]) {
+                sumY += Y[j++];
+            } else { // Found a common element
+                result += Math.max(sumX, sumY);
+                result += X[i]; // Add the common element
+                sumX = 0;
+                sumY = 0;
+                i++;
+                j++;
+            }
+        }
+        while (i < m) {
+            sumX += X[i++];
+        }
+
+        while (j < n) {
+            sumY += Y[j++];
+        }
+        result += Math.max(sumX, sumY);
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] X = { 3, 6, 7, 8, 10, 12, 15, 18, 100 };
+        int[] Y = { 1, 2, 3, 5, 7, 9, 10, 11, 15, 16, 18, 25, 50 };
+
+        int maxSum = maxSumPath(X, Y);
+
+        System.out.println("Maximum sum path: " + maxSum);
+    }
+}
+
+3) third question 
+
+import java.util.HashMap;
+
+public class WordCount {
+    public static void main(String[] args) {
+        String sentence = "Hello world! This is a sample sentence. Count the number of words in this string.";
+
+        String[] words = sentence.split("\\s+");
+
+        HashMap<String, Integer> wordCountMap = new HashMap<>();
+
+        for (String word : words) {
+            word = word.replaceAll("[^a-zA-Z]", "").toLowerCase();
+            
+            if (!word.isEmpty()) {
+                if (wordCountMap.containsKey(word)) {
+                    wordCountMap.put(word, wordCountMap.get(word) + 1);
+                } else {
+                    wordCountMap.put(word, 1);
+                }
+            }
+        }
+
+        System.out.println("Word Counts:");
+        for (String word : wordCountMap.keySet()) {
+            System.out.println(word + ": " + wordCountMap.get(word));
+        }
+
+        int totalWords = words.length;
+        System.out.println("Total number of words: " + totalWords);
+    }
+}
+
+4) fourth question 
+
+import java.util.HashMap;
+
+public class DuplicateCharacters {
+    public static void main(String[] args) {
+        String str = "hello world";
+
+        HashMap<Character, Integer> charFrequencyMap = new HashMap<>();
+
+        for (char c : str.toCharArray()) {
+            if (charFrequencyMap.containsKey(c)) {
+                charFrequencyMap.put(c, charFrequencyMap.get(c) + 1);
+            } else {
+                charFrequencyMap.put(c, 1);
+            }
+        }
+
+        System.out.println("Duplicate characters in the string \"" + str + "\":");
+        for (char c : charFrequencyMap.keySet()) {
+            if (charFrequencyMap.get(c) > 1) {
+                System.out.println(c + ": " + charFrequencyMap.get(c));
+            }
+        }
+    }
+}
+
+
+
